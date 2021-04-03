@@ -1,0 +1,35 @@
+{
+	"name": "normalize-vbb-station-name-for-search",
+	"description": "Make VBB station names relevant and safe for searching.",
+	"version": "1.0.0",
+	"main": "index.js",
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"vbb",
+		"bvg",
+		"stations",
+		"search",
+		"url-safe",
+		"slug",
+		"trim"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/normalize-vbb-station-name-for-search",
+	"repository": "git://github.com/derhuerst/normalize-vbb-station-name-for-search.git",
+	"license": "ISC",
+	"engines": {
+		"node": ">=12"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"eslint": "^7.9.0"
+	},
+	"scripts": {
+		"test": "node test.js",
+		"lint": "eslint .",
+		"prepublishOnly": "npm run lint && npm test"
+	}
+}
