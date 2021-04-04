@@ -2,5 +2,52 @@
 
 const {strictEqual: eql} = require('assert')
 const normalize = require('.')
+const {expandStrasse, expandPlatz} = normalize
 
-// todo
+eql(expandStrasse('Foo Barstr.'), 'Foo Bar Strasse')
+eql(expandStrasse('Foo Barstrasse'), 'Foo Bar Strasse')
+eql(expandStrasse('Foo Barstraße'), 'Foo Bar Strasse')
+eql(expandStrasse('Foo Bar Str.'), 'Foo Bar Strasse')
+eql(expandStrasse('Foo Bar strasse'), 'Foo Bar Strasse')
+eql(expandStrasse('Foo Bar Straße'), 'Foo Bar Strasse')
+eql(expandStrasse('Str.'), 'Strasse')
+eql(expandStrasse('strasse'), 'Strasse')
+eql(expandStrasse('Straße'), 'Strasse')
+
+eql(expandPlatz('Alexanderpl./Grunerstr.'), 'Alexander Platz/Grunerstr.')
+eql(expandPlatz('Alexanderpl/Memhardstr.'), 'Alexander Platz/Memhardstr.')
+eql(expandPlatz('U Friedrich-Wilhelm-Pl'), 'U Friedrich-Wilhelm- Platz')
+eql(expandPlatz('Olivaer Pl.'), 'Olivaer Platz')
+eql(expandPlatz('Olivaer Pl'), 'Olivaer Platz')
+eql(expandPlatz('Olivaer Platz'), 'Olivaer Platz')
+
+eql(normalize('S+U Blissestraße'), 'blisse strasse')
+eql(normalize('S Schöneberg (Berlin)'), 'schoeneberg')
+eql(normalize('S Plänterwald (Berlin)'), 'plaenterwald')
+eql(normalize('Großer Stern (Berlin)'), 'grosser stern')
+eql(normalize('Wiebestr./Huttenstr. (Berlin)'), 'wiebe strasse hutten strasse')
+eql(normalize('Seestraße'), 'see strasse')
+eql(normalize('S+U Warschauer Str.'), 'warschauer strasse')
+eql(normalize('Petershagen (b. Berlin), Elbestr.'), 'elbe strasse')
+eql(normalize('Wehrhain, B 87'), 'b 87')
+eql(normalize('Mollstrasse'), 'moll strasse')
+eql(normalize('Mollstraße'), 'moll strasse')
+eql(normalize('Mollstr.'), 'moll strasse')
+eql(normalize('Bernauer Strasse'), 'bernauer strasse')
+eql(normalize('Bernauer Straße'), 'bernauer strasse')
+eql(normalize('Bernauer Str.'), 'bernauer strasse')
+eql(normalize('U Turmstr.'), 'turm strasse')
+eql(normalize('S+U Warschauer Str.'), 'warschauer strasse') // todo: correct?
+eql(normalize('S+U Potsdamer Platz [Bus Stresemannstr.]'), 'potsdamer platz bus stresemann strasse')
+eql(normalize('Kyritz, Werner-von-Siemens-Str.'), 'werner von siemens strasse')
+
+eql(normalize('Alexanderpl./Grunerstr.'), 'alexander platz gruner strasse')
+eql(normalize('Alexanderpl/Memhardstr.'), 'alexander platz memhard strasse')
+eql(normalize('U Friedrich-Wilhelm-Pl'), 'friedrich wilhelm platz')
+eql(normalize('Olivaer Pl.'), 'olivaer platz')
+
+eql(normalize('S Südkreuz'), 'suedkreuz')
+eql(normalize('S+U Neukölln [U7]'), 'neukoelln u7')
+eql(normalize('Bhf. Zoo'), 'bahnhof zoo')
+eql(normalize('Cottbus Hbf.'), 'cottbus hauptbahnhof')
+eql(normalize('S Südkreuz Bhf (Berlin)'), 'suedkreuz bahnhof')

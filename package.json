@@ -23,6 +23,8 @@
 		"node": ">=12"
 	},
 	"dependencies": {
+		"normalize-for-search": "^2.1.0",
+		"parse-vbb-station-name": "^2.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^7.9.0"
