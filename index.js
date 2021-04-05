@@ -37,19 +37,31 @@ const expandHauptbahnhof = (words) => {
 
 const normalizeVbbStationNameForSearch = (rawName, opt = {}) => {
 	const {
+		sbahnUbahn: useSbahnUbahn,
+	} = {
+		sbahnUbahn: false,
+		...opt,
+	}
+
+	const {
+		sbahnUbahn,
 		name,
 		part,
 	} = parseVbbStopName(rawName)
 
 	return [
-		name && name.text,
-		...(part || []).map(p => p.text),
+		useSbahnUbahn && sbahnUbahn && sbahnUbahn.text,
+		...[
+			name && name.text,
+			...(part || []).map(p => p.text),
+		]
+		.filter(str => !!str)
+		.map(expandStrasse)
+		.map(expandPlatz)
+		.map(expandBahnhof)
+		.map(expandHauptbahnhof),
 	]
 	.filter(str => !!str)
-	.map(expandStrasse)
-	.map(expandPlatz)
-	.map(expandBahnhof)
-	.map(expandHauptbahnhof)
 	.map(str => normalize(str.toLowerCase().replace(/[^\p{N}\p{L}]+/ug, ' ')))
 	.join(' ')
 }
