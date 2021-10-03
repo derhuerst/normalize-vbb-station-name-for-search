@@ -35,6 +35,13 @@ const expandHauptbahnhof = (words) => {
 	.trim()
 }
 
+const abzweig = new RegExp(`${boundaryBefore}(abzw\\.|abzw)${boundaryAfter}`, 'ugi')
+const expandAbzweig = (words) => {
+	return words
+	.replace(abzweig, 'abzweig')
+	.trim()
+}
+
 const normalizeVbbStationNameForSearch = (rawName, opt = {}) => {
 	const {
 		sbahnUbahn: useSbahnUbahn,
@@ -59,7 +66,8 @@ const normalizeVbbStationNameForSearch = (rawName, opt = {}) => {
 		.map(expandStrasse)
 		.map(expandPlatz)
 		.map(expandBahnhof)
-		.map(expandHauptbahnhof),
+		.map(expandHauptbahnhof)
+		.map(expandAbzweig),
 	]
 	.filter(str => !!str)
 	.map(str => normalize(str.toLowerCase().replace(/[^\p{N}\p{L}]+/ug, ' ')))

@@ -1,7 +1,7 @@
 {
 	"name": "normalize-vbb-station-name-for-search",
 	"description": "Make VBB station names relevant and safe for searching.",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"main": "index.js",
 	"files": [
 		"index.js"
